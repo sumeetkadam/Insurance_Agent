@@ -1,0 +1,25 @@
+<div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="center-box mt-4 p-4">
+        <form [formGroup]="identityForm" class="d-flex flex-column align-items-center w-100">
+            <h5 class="text-center mb-3">Verify Your Identity</h5>
+            <div class="form-group w-100">
+                <label for="agencyCode" class="mb-1">Enter Agency Code</label>
+                <input type="text" id="agencyCode" formControlName="agencyCode" placeholder="Enter Agency Code"
+                    class="form-control text-center">
+            </div>
+            <div class="form-check d-flex align-items-center mt-3 w-100">
+                <input type="checkbox" id="consentGiven" formControlName="consentGiven" class="form-check-input">
+                <label for="consentGiven" class="ms-2">
+                    I agree to the <b class="text-primary">terms & conditions</b> and acknowledge the privacy policy.
+                </label>
+            </div>
+            <button type="submit" (click)="validateAgencyCode()" [disabled]="!identityForm.valid"
+                class="btn btn-primary mt-4 w-100">Request OTP</button>
+            <!-- Error & Success Messages -->
+            <p *ngIf="validationSuccessMessage" class="text-success mt-2">{{ validationSuccessMessage }}</p>
+            <p *ngIf="validationFailedMessage && !validationSuccessMessage" class="text-danger mt-2">{{
+                validationFailedMessage }}</p>
+            <p *ngIf="otpMessage" class="text-success mt-2">{{ otpMessage }}</p>
+        </form>
+    </div>
+</div>
