@@ -5,7 +5,7 @@
     <div class="d-flex flex-column w-100">
         <div *ngFor = "let loginMode of loginModes"class="form-check">
             <input type="radio" [value]="loginMode.modeName" id="{{loginMode.modeName}}" formControlName="loginMode" class="form-check-input">
-            <label for="{{loginMode.modeName}}" (click)="navigateToComponent(loginMode.id)" class="form-check-label">{{loginMode.modelName}}</label>
+            <label for="{{loginMode.modeName}}" (click)="navigateToComponent(loginMode.id)" class="form-check-label">{{loginMode.modeName}}</label>
         </div>
     </div>
     <button type="submit" [disabled]="!loginModeSelection.valid" class="btn btn-primary mt-4 w-100"></button>

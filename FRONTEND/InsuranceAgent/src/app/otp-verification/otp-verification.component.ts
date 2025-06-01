@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { OtpServiceService } from '../services/otp-service.service';
 import { Router } from '@angular/router';
+import { FormdataService } from '../services/formdata.service';
 
 @Component({
   selector: 'app-otp-verification',
@@ -24,7 +25,7 @@ export class OtpVerificationComponent implements OnInit {
 
   constructor( private otpService: OtpServiceService,
     private fb: FormBuilder,
-    private formData: FormData,
+    private formDataService: FormdataService,
     private router : Router) { }
 
   ngOnInit(): void {
@@ -40,7 +41,7 @@ export class OtpVerificationComponent implements OnInit {
   }
 
   getAgencyCode():void{
-    this.agencySubscription = this.formData.currentData.subscribe((data)=>{
+    this.agencySubscription = this.formDataService.currentData.subscribe((data)=>{
       if(data?.agencyCode){
         this.agencyCode = data.agencyCode;
         console.log('Agency Code for OTP Validation :', this.agencyCode);
@@ -92,7 +93,7 @@ export class OtpVerificationComponent implements OnInit {
     this.otpService.validateOtp(agencyCode,enteredOtp).subscribe(
       (response:any)=>{
         console.log('OTP Verified Successfully:',response);
-        this.sucessMessage = response.message;
+        this.successMessage = response.message;
         this.signUpSuccess();
       },
       (error:any)=>{
