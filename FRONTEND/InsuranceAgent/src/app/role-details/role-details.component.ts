@@ -48,7 +48,7 @@ private initializeForm(): void {
   this.agents = data;
   console.log('Agents received:', this.agents);
     },
-  error: (err) => console.error('X Error fetching roles:', err)
+  error: (err) => console.error('❌ Error fetching roles:', err)
   });
   }
 
@@ -57,24 +57,24 @@ private initializeForm(): void {
   next: (data) => {
   if (data?.agencyCode) {
   this.receivedAgencyCode = data.agencyCode;
-  console.log('Received Agency Code:', this.receivedAgencyCode);
+  console.log('✅ Received Agency Code:', this.receivedAgencyCode);
   } else {
   
-  console.error('X No agency code received! Data:', data);
+  console.error('❌ No agency code received! Data:', data);
   }
 },
-  error: (err) => console.error('X Error receiving data:', err)
+  error: (err) => console.error('❌ Error receiving data:', err)
   });
 }
 
   validateAgencyCode(): void {
   const agencyCodeInput = this.identityForm.controls['agencyCode'].value?.trim();
   if (agencyCodeInput === this.receivedAgencyCode?.trim()) {
-    this.validationSuccessMessage ='Valid agency Code.';
+    this.validationSuccessMessage ='✅ Valid agency Code.';
   this.requestOTP();
   }
   else{
-    this.validationFailedMessage = 'Invalid agency code.';
+    this.validationFailedMessage = '❌ Invalid agency code.';
     this.identityForm.controls['agencyCode'].setValue('');
   }
 }
@@ -83,20 +83,20 @@ private requestOTP():void{
 
   const agencyCodeToSend = this.receivedAgencyCode || this. identityForm.value.agencyCode;
   if(!agencyCodeToSend){
-    console.error('Agency code is mising in request!');
+    console.error('❌ Agency code is mising in request!');
     return;
   }
 
-  console.log('Sending OTP request for Agency Codes: ',agencyCodeToSend);
+  console.log('🔄 Sending OTP request for Agency Codes: ',agencyCodeToSend);
   this.otp.requestOtp(agencyCodeToSend).subscribe({
     next:(response)=>{
-      console.log('OTP Generated:',response);
-      this.otpMessage = 'OTP Generated successfully!';
+      console.log('✅ OTP Generated:',response);
+      this.otpMessage = '✅ OTP Generated successfully!';
       setTimeout(()=>this.router.navigate(['generateOTP']),1000);
     },
     error:(error)=>{
-      console.log('OTP Generation Error:', error);
-      this.otpMessage = 'Failed to generate OTP';
+      console.log('❌ OTP Generation Error:', error);
+      this.otpMessage = '❌ Failed to generate OTP';
     }
   });
 }

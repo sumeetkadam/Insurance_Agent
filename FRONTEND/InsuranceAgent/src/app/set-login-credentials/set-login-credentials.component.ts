@@ -30,30 +30,30 @@ export class SetLoginCredentialsComponent implements OnInit {
   }
   onSubmit() {
     if (this.passwordForm.invalid) {
-      this.errorMessage = "X Please enter a valid password.";
+      this.errorMessage = "❌ Please enter a valid password.";
       return;
     }
 
     const { password, confirmPassword } = this.passwordForm.value;
 
     if (password !== confirmPassword) {
-      this.errorMessage = "X Passwords do not match.";
+      this.errorMessage = "❌ Passwords do not match.";
       return;
     }
     if (!this.receivedAgencyCode || this.receivedAgencyCode.trim() === '') {
-      this.errorMessage = "X Agency Code is required.";
+      this.errorMessage = "❌ Agency Code is required.";
       return;
     }
 
 
-    //Ensure agencyCode is properly sent
+    //✅ Ensure agencyCode is properly sent
     const requestBody = {
-      agencyCode: this.receivedAgencyCode, // Manually add agencyCode from service
+      agencyCode: this.receivedAgencyCode, //✅ Manually add agencyCode from service
       password,
       confirmPassword
     };
 
-    console.log("Sending request:", requestBody); // Debugging log
+    console.log("🔄 Sending request:", requestBody); // Debugging log
 
     this.passwordService.setPassword(requestBody).subscribe({
       next: (response: any) => {
@@ -62,7 +62,7 @@ export class SetLoginCredentialsComponent implements OnInit {
         this.router.navigate(['/mpinSetup']);
       },
       error: (error) => {
-        this.errorMessage = error.error?.error || "X Password validation failed.";
+        this.errorMessage = error.error?.error || "❌ Password validation failed.";
         this.successMessage = '';
       }
     });
@@ -80,12 +80,12 @@ export class SetLoginCredentialsComponent implements OnInit {
       next: (data) => {
         if (data?.agencyCode) {
           this.receivedAgencyCode = data.agencyCode;
-          console.log('✔ Received Agency Code:', this.receivedAgencyCode);
+          console.log('✅ Received Agency Code:', this.receivedAgencyCode);
         } else {
-          console.error('X No agency code received! Data:', data);
+          console.error('❌ No agency code received! Data:', data);
         }
       },
-      error: (err) => console.error('X Error receiving data:', err)
+      error: (err) => console.error('❌ Error receiving data:', err)
     });
   }
 }

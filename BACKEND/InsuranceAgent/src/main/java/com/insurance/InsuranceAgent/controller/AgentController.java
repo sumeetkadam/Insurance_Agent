@@ -42,7 +42,7 @@ public ResponseEntity<List<Agent>> getAllAgents(){
 }
 
 @PostMapping("/adAgent")
-public ResponseEntity<String> loginAgent(@RequestBody AgentDto agentdto){
+public ResponseEntity<String> loginAgent(@RequestBody AgentDto agentDto){
 	String response= agentService.loginAgent(agentDto);
 	return new ResponseEntity<>(response, HttpStatus.CREATED);
 }

@@ -44,11 +44,11 @@ export class OtpVerificationComponent implements OnInit {
     this.agencySubscription = this.formDataService.currentData.subscribe((data)=>{
       if(data?.agencyCode){
         this.agencyCode = data.agencyCode;
-        console.log('Agency Code for OTP Validation :', this.agencyCode);
+        console.log('✅ Agency Code for OTP Validation :', this.agencyCode);
         this.otpValidation.patchValue({agencyCode:this.agencyCode});
       }
       else{
-        console.error('No agency code available for OTP validation');
+        console.error('❌ No agency code available for OTP validation');
       }
     });
   }
@@ -56,49 +56,49 @@ export class OtpVerificationComponent implements OnInit {
   requestOtp():void{
     const agencyCode = this.otpValidation.controls?.['agencyCode']?.value?.trim();
     if(!agencyCode){
-      console.error('Agency code is missing in request! Check form binding.');
-      this.errorMessage = 'Please enter the agency code';
+      console.error('❌ Agency code is missing in request! Check form binding.');
+      this.errorMessage = '❌ Please enter the agency code';
       return;
     }
     console.log('Sending OTP Request for Agency Code:', agencyCode);
 
     this.otpService.requestOtp(agencyCode).subscribe(
       (response)=>{
-        console.log('OTP Generated Successfully:', response);
+        console.log('✅ OTP Generated Successfully:', response);
       },
       (error)=>{
-        console.error('OTP generation Failed:',error);
-        this.errorMessage = error?.error?.message || 'Failed to generate OTP, try again later';
+        console.error('❌ OTP generation Failed:',error);
+        this.errorMessage = error?.error?.message || '❌ Failed to generate OTP, try again later';
       }
     );
   }
 
   validateOtp():void{
     if(!this.otpValidation){
-      console.error(" Form is not initialized!");
-      this.errorMessage = "Form is not initialized, please check binding!"
+      console.error("❌ Form is not initialized!");
+      this.errorMessage = "❌ Form is not initialized, please check binding!"
       return;
     }
 
     const agencyCode = this.otpValidation.controls?.['agencyCode']?.value?.trim();
-    const enteredOtp = this.otpValidation.controls?.['agencyCode']?.value?.trim();
+    const enteredOtp = this.otpValidation.controls?.['enteredOtp']?.value?.trim();
 
     if(!agencyCode || !enteredOtp){
-      this.errorMessage = 'Please enter both agency code and OTP';
-      console.error('Missing Agency Code or OTP in request!');
+      this.errorMessage = '❌ Please enter both agency code and OTP';
+      console.error('❌ Missing Agency Code or OTP in request!');
       return;
     }
     console.log('Sending OTP Validation Request:',{agencyCode, enteredOtp});
 
     this.otpService.validateOtp(agencyCode,enteredOtp).subscribe(
       (response:any)=>{
-        console.log('OTP Verified Successfully:',response);
+        console.log('✅ OTP Verified Successfully:',response);
         this.successMessage = response.message;
         this.signUpSuccess();
       },
       (error:any)=>{
-        console.error('OTP Validation Error:',error);
-        this.errorOtpMessage = error?.error?.message || 'Incorrect OTP, please try again.';
+        console.error('❌ OTP Validation Error:',error);
+        this.errorOtpMessage = error?.error?.message || '❌ Incorrect OTP, please try again.';
         this.otpValidation.controls?.['enteredOtp']?.setValue('');
         this.wrongOtp = true;
         this.startTimer();
@@ -114,7 +114,7 @@ export class OtpVerificationComponent implements OnInit {
       setTimeout(()=>(this.disableResend = false),5*60*1000);
     }
     else{
-      this.errorMessage ='Maximum resend attempts reached.';
+      this.errorMessage ='⚠️ Maximum resend attempts reached.';
     }
   }
   startTimer():void{

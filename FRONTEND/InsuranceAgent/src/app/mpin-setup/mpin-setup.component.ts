@@ -40,22 +40,22 @@ export class MpinSetupComponent implements OnInit {
       next: (data) => {
         if (data?.agencyCode) {
           this.receivedAgencyCode = data.agencyCode;
-          console.log('Received Agency Code:', this.receivedAgencyCode);
+          console.log('✅ Received Agency Code:', this.receivedAgencyCode);
         } else {
-          console.error('X No agency code received! Data:', data);
+          console.error('❌ No agency code received! Data:', data);
         }
       },
-      error: (err) => console.error('X Error receiving data:', err),
+      error: (err) => console.error('❌ Error receiving data:', err),
     });
   }
   onSubmit() {
     const { mpin, confirmMpin } = this.mpinForm.value;
     if (!mpin || !confirmMpin) {
-      this.errorMessage = 'XMPIN fields cannot be empty.';
+      this.errorMessage = '❌ MPIN fields cannot be empty.';
       return;
     }
     if (mpin !== confirmMpin) {
-      this.errorMessage = 'MPINS do not match.';
+      this.errorMessage = '❌ MPINS do not match.';
       return;
     }
     const requestBody = {
@@ -71,7 +71,7 @@ export class MpinSetupComponent implements OnInit {
         this.router.navigate(['/loginSuccess']);
       },
       (error) => {
-        this.errorMessage = error.error?.error || 'failed to set MPIN';
+        this.errorMessage = error.error?.error || '❌ failed to set MPIN';
         this.successMessage = '';
       }
     );
