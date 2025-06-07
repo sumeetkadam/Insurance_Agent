@@ -1,0 +1,28 @@
+<div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="center-box mt-4 p-4">
+        <form [formGroup]="mpinForm" (ngSubmit)="onSubmit()" class="d-flex flex-column align-items-center">
+            <h5 class="text-center mb-3">Set your login Credentials</h5>
+            <div class="formGroup d-flex flex-column w-100">
+                <label for="mpin" class="mb-1">Mpin</label>
+                <div class="input-wrapper">
+                    <input type="{{showMpin ? 'text': 'password'}}" id="mpin" formControlName="mpin"
+                        placeholder="Enter MPIN" class="form-control">
+                    <i class="fa" [ngClass]="showMpin ? 'fa-eye' : 'fa-eye-slash'"></i>
+                </div>
+            </div>
+            <div class= "formGroup d-flex flex-column w-100 mt-3">
+                        <label for="confirmMpin" class="mb-1">Confirm MPIN</label>
+                        <div class="input-wrapper">
+                            <input type="{{showMpin? 'text': 'password'}}" id="confirmMpin"
+                                formControlName="confirmMpin" placeholder="Confirm MPIN" class="form-control">
+                            <i class="fa" [ngClass]="showMpin ? 'fa-eye' : 'fa-eye-slash'"></i>
+                        </div>
+            </div>
+
+                <p *ngIf="successMessage" class="text-success mt-2">{{successMessage}}</p>
+                <p *ngIf="errorMessage" class="text-danger mt-2">{{errorMessage}}</p>
+                <button class="next-btn btn btn-primary mt-4 w-100" type="submit"
+                    [disabled]="!mpinForm.valid">Next</button>
+        </form>
+    </div>
+</div>

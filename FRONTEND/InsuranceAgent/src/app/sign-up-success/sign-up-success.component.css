@@ -1,0 +1,15 @@
+.center-box {
+    width: 320px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.fw-bold{
+    font-weight:bold;
+}
+
+.fs-5{
+    font-size:1.25rem;
+}

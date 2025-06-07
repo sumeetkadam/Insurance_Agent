@@ -1,0 +1,29 @@
+<div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="center-box mt-4 p-4">
+        <form [formGroup]="otpValidation" (ngSubmit)="validateOtp()"
+            class="d-flex flex-column align-items-center w-100">
+            <h5 class="text-center mb-3">Verify Your Identity</h5>
+            <p class="text-center">
+                Enter OTP sent to your LIC registered phone number:
+                <strong>+91 98******21</strong>
+            </p>
+            <div class="formGroup w-100">
+                <label for="enteredOtp" class="mb-1">Enter OTP</label>
+                <input type="text" id="enteredOtp" formControlName="enteredOtp" placeholder="Enter OTP"
+                    class="form-control text-center" />
+            </div>
+            <!-- Resend Timer -->
+            <p *ngIf="wrongOtp" class="text-danger mt-2">
+                Resend OTP in {{ timeLeft }} seconds
+            </p>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary mt-3 w-100" [disabled]="wrongOtp">
+                Next
+            </button>
+            <!-- Error Messages -->
+            <p *ngIf="wrongOtp && errorOtpMessage" class="text-danger mt-2">{{ errorOtpMessage }}</p> 
+    <p *ngIf= "resendAttempts >= 2 && errorMessage" class="text-warning mt-2">{{ errorMessage }}
+            </p>
+        </form>
+    </div>
+</div>
