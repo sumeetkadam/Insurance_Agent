@@ -40,9 +40,9 @@ export class MpinComponent implements OnInit {
     this.agencySubscription = this.formDataService.currentData.subscribe((data) => {
       if (data?.agencyCode) {
         this.agencyCode = data.agencyCode;
-        console.log(' Agency Code:', this.agencyCode); // Debugging 
+        console.log('✅ Agency Code:', this.agencyCode); // Debugging 
       } else {
-        console.error('X No agency code available');
+        console.error('❌ No agency code available');
       }
     });
   }
